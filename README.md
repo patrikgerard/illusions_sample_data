@@ -12,21 +12,43 @@ The data is stored in a Parquet file format for efficient loading and processing
 # Sampling Procedure
 
 A random subset of 25,000 rows was drawn from the full dataset using a seed=81
-
-| Column                                                                                                             | Description                                                             |
-| :----------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------- |
-| `extracted_dialogue`                                                                                               | The extracted Reddit comment or dialogue snippet.                       |
-| `subreddit`                                                                                                        | Name of the subreddit the post/comment originated from.                 |
-| `id`                                                                                                               | Original Reddit post or comment ID.                                     |
-| `party`                                                                                                            | Political or ideological leaning (if applicable).                       |
-| `text`                                                                                                             | Full text content (if longer than extracted snippet).                   |
-| `turn`                                                                                                             | Position of the message in a dialogue thread.                           |
-| `harassment`, `harassment_threatening`                                                                             | Binary indicators of harassment or threatening harassment.              |
-| `hate`, `hate_threatening`                                                                                         | Binary indicators of hate speech or threatening hate speech.            |
-| `self-harm`, `self-harm_instructions`, `self-harm_intent`                                                          | Self-harm–related labels (general, instructional, or intentional).      |
-| `sexual`, `sexual_minors`                                                                                          | Flags for sexual or minor-related content.                              |
-| `violence`, `violence_graphic`                                                                                     | Flags for violent or graphically violent content.                       |
-| `illicit`, `illicit_violent`                                                                                       | Flags for illicit activity or violent illicit acts.                     |
-| `anger`, `disgust`, `fear`, `sadness`, `anticipation`, `surprise`, `optimism`, `joy`, `love`, `trust`, `pessimism` | Emotion indicators derived from lexical or model-based emotion tagging. |
-| `Purity`, `Thin Morality`, `Authority`, `Equality`, `Loyalty`, `Care`, `Proportionality`                           | Scores for moral foundation categories.                                 |
-| `text_id`                                                                                                          | Unique identifier for each text instance.                               |
+| Column                   | Type          | Description                                                                                   |
+| ------------------------ | ------------- | --------------------------------------------------------------------------------------------- |
+| `extracted_dialogue`     | string        | Extracted snippet associated with the post (e.g., quoted or parsed dialogue text if present). |
+| `subreddit`              | string        | **Post** subreddit name (posts only; comments are not collected in this sample).              |
+| `id`                     | string        | Reddit post ID.     |
+| `party`                  | string | null | Categorical tag if present in the upstream source; not guaranteed/populated for all rows.     |
+| `text`                   | string        | Full post text/body (when available).                                                         |
+| `turn`                   | int | null    | Turn index if the post includes structured/parsed dialogue; may be null otherwise.            |
+| `harassment`             | float [0,1]   | **OpenAI Moderation score** for harassment.                                                   |
+| `harassment_threatening` | float [0,1]   | **OpenAI Moderation score** for threatening harassment.                                       |
+| `hate`                   | float [0,1]   | **OpenAI Moderation score** for hate.                                                         |
+| `hate_threatening`       | float [0,1]   | **OpenAI Moderation score** for threatening hate.                                             |
+| `self-harm`              | float [0,1]   | **OpenAI Moderation score** for self-harm content.                                            |
+| `self-harm_instructions` | float [0,1]   | **OpenAI Moderation score** for self-harm instructions.                                       |
+| `self-harm_intent`       | float [0,1]   | **OpenAI Moderation score** for self-harm intent.                                             |
+| `sexual`                 | float [0,1]   | **OpenAI Moderation score** for sexual content.                                               |
+| `sexual_minors`          | float [0,1]   | **OpenAI Moderation score** for sexual content involving minors.                              |
+| `violence`               | float [0,1]   | **OpenAI Moderation score** for violence.                                                     |
+| `violence_graphic`       | float [0,1]   | **OpenAI Moderation score** for graphic violence.                                             |
+| `illicit`                | float [0,1]   | **OpenAI Moderation score** for illicit behavior.                                             |
+| `illicit_violent`        | float [0,1]   | **OpenAI Moderation score** for violent illicit behavior.                                     |
+| `anger`                  | float [0,1]   | **DEMUX emotion** score: anger.                                                               |
+| `disgust`                | float [0,1]   | **DEMUX emotion** score: disgust.                                                             |
+| `fear`                   | float [0,1]   | **DEMUX emotion** score: fear.                                                                |
+| `sadness`                | float [0,1]   | **DEMUX emotion** score: sadness.                                                             |
+| `anticipation`           | float [0,1]   | **DEMUX emotion** score: anticipation.                                                        |
+| `surprise`               | float [0,1]   | **DEMUX emotion** score: surprise.                                                            |
+| `optimism`               | float [0,1]   | **DEMUX emotion** score: optimism.                                                            |
+| `joy`                    | float [0,1]   | **DEMUX emotion** score: joy.                                                                 |
+| `love`                   | float [0,1]   | **DEMUX emotion** score: love.                                                                |
+| `trust`                  | float [0,1]   | **DEMUX emotion** score: trust.                                                               |
+| `pessimism`              | float [0,1]   | **DEMUX emotion** score: pessimism.                                                           |
+| `Purity`                 | float         | Moral/virtue signal (scoring source per your pipeline; numeric).                              |
+| `Thin Morality`          | float         | Thin-morality signal (numeric).                                                               |
+| `Authority`              | float         | Moral/virtue signal (numeric).                                                                |
+| `Equality`               | float         | Moral/virtue signal (numeric).                                                                |
+| `Loyalty`                | float         | Moral/virtue signal (numeric).                                                                |
+| `Care`                   | float         | Moral/virtue signal (numeric).                                                                |
+| `Proportionality`        | float         | Moral/virtue signal (numeric).                                                                |
+| `text_id`                | string        | Stable unique identifier for the text/post row.                                               |
