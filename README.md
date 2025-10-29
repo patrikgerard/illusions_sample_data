@@ -1,6 +1,6 @@
 # Reddit Dialogue Sample Dataset
 
-This repository contains a 25,000-sample subset of a larger dataset of Reddit dialogues. The sample was generated to facilitate faster experimentation and prototyping for emotion, morality, and toxicity modeling.
+25,000-sample subset of a larger dataset of Reddit dialogues regarding Human-AI chats.
 
 # Overview
 
