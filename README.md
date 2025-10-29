@@ -17,6 +17,7 @@ A random subset of 25,000 rows was drawn from the full dataset using a seed=81
 | `extracted_dialogue`     | string      | The multi-turn context window around the current turn (e.g., lines like `Chatbot: ...` / `USER: ...`). |
 | `subreddit`              | string      | Subreddit the **post** came from (posts only in this sample; no comment objects).                      |
 | `id`                     | string      | Base Reddit **post ID** (e.g., `17f17iy`).                                                             |
+| `text_id`                | string      | Unique per-turn identifier: `"{id}_{turn}"` (e.g., `17f17iy_4`).                                       |
 | `party`                  | string      | **Speaker role** label for the current turn (e.g., `USER`, `Chatbot`).                                 |
 | `text`                   | string      | The **current turn utterance** text (e.g., “Now give daddy a kiss”).                                   |
 | `turn`                   | int         | Turn index within the extracted dialogue (e.g., `1`, `2`, `4`, `6`).                                   |
@@ -51,4 +52,3 @@ A random subset of 25,000 rows was drawn from the full dataset using a seed=81
 | `Loyalty`                | float       | Moral-language score (numeric).                                                                        |
 | `Care`                   | float       | Moral-language score (numeric).                                                                        |
 | `Proportionality`        | float       | Moral-language score (numeric).                                                                        |
-| `text_id`                | string      | Unique per-turn identifier: `"{id}_{turn}"` (e.g., `17f17iy_4`).                                       |
